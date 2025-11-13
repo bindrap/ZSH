@@ -359,11 +359,16 @@ main() {
     echo "  • Philosophy quotes and ASCII art"
     echo ""
 
-    read -p "Do you want to continue? (y/n) " -n 1 -r
-    echo
-    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-        print_info "Installation cancelled"
-        exit 0
+    # Check for -y or --yes flag, or non-interactive mode
+    if [[ "$1" != "-y" ]] && [[ "$1" != "--yes" ]] && [[ -t 0 ]]; then
+        read -p "Do you want to continue? (y/n) " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            print_info "Installation cancelled"
+            exit 0
+        fi
+    else
+        print_info "Running in non-interactive mode or with --yes flag, proceeding with installation..."
     fi
 
     echo ""
@@ -419,4 +424,4 @@ main() {
 }
 
 # Run main function
-main
+main "$@"
