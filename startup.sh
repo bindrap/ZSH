@@ -45,7 +45,7 @@ get_ascii_art() {
     local current_index=1
     [[ -f "$art_index_file" ]] && current_index=$(cat "$art_index_file")
 
-    local next_index=$(( (current_index % 4) + 1 ))
+    local next_index=$(( (current_index % 20) + 1 ))
     echo "$next_index" > "$art_index_file"
 
     awk -v idx="$current_index" '
