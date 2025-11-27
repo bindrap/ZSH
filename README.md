@@ -52,6 +52,18 @@ Or using wget:
 wget -qO- https://raw.githubusercontent.com/bindrap/ZSH/main/install.sh | bash
 ```
 
+### Installation Options
+
+The installer accepts a few helpful flags:
+
+- `-y` or `--yes` — run without a confirmation prompt (handy for automation)
+- `-h` or `--help` — show the built-in help text and exit
+
+Notes:
+
+- In non-interactive shells (e.g., CI or piped install), the script auto-confirms even without `-y`.
+- All actions are logged to a temporary file. If something fails, the log path is printed so you can review it.
+
 ### Manual Installation
 
 1. **Clone the repository:**

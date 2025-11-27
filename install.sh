@@ -999,6 +999,21 @@ show_summary() {
     fi
 }
 
+# Show usage information
+show_usage() {
+    cat <<'EOF'
+Usage: install.sh [options]
+
+Options:
+  -y, --yes     Run without confirmation prompt
+  -h, --help    Show this help message and exit
+
+Notes:
+- Non-interactive shells auto-confirm by default
+- All actions are logged to a temporary log file shown on failure
+EOF
+}
+
 main() {
     clear
 
@@ -1025,14 +1040,30 @@ main() {
     echo "  • Graceful error handling"
     echo ""
 
-    # Check for non-interactive mode
+    # Parse arguments
     local auto_confirm=false
-    if [[ "$1" == "-y" ]] || [[ "$1" == "--yes" ]]; then
-        auto_confirm=true
-        print_info "Running in auto-confirm mode"
-    elif [[ ! -t 0 ]]; then
+    local args=("$@")
+
+    for arg in "${args[@]}"; do
+        case "$arg" in
+            -y|--yes)
+                auto_confirm=true
+                ;;
+            -h|--help)
+                show_usage
+                exit 0
+                ;;
+        esac
+    done
+
+    # Non-interactive shells auto-confirm by default
+    if [ "$auto_confirm" = false ] && [[ ! -t 0 ]]; then
         auto_confirm=true
         print_info "Running in non-interactive mode"
+    fi
+
+    if [ "$auto_confirm" = true ]; then
+        print_info "Running in auto-confirm mode"
     fi
 
     if [ "$auto_confirm" = false ]; then
