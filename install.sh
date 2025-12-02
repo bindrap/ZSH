@@ -647,7 +647,7 @@ install_oh_my_zsh() {
     fi
 
     # Validate installation
-    if ! validate_installation "Oh My Zsh" "[ -d '$omz_dir/.git' ]"; then
+    if ! validate_installation "Oh My Zsh" "[ -d $omz_dir/.git ]"; then
         return 1
     fi
 
@@ -692,7 +692,7 @@ install_powerlevel10k() {
     fi
 
     # Validate installation
-    if ! validate_installation "Powerlevel10k" "[ -d '$p10k_dir/.git' ]"; then
+    if ! validate_installation "Powerlevel10k" "[ -d $p10k_dir/.git ]"; then
         return 1
     fi
 
@@ -726,7 +726,7 @@ install_zsh_plugins() {
         rm -rf "$autosugg_dir" 2>/dev/null
 
         if git_clone_with_retry "https://github.com/zsh-users/zsh-autosuggestions" "$autosugg_dir" 1; then
-            if validate_installation "zsh-autosuggestions" "[ -d '$autosugg_dir/.git' ]"; then
+            if validate_installation "zsh-autosuggestions" "[ -d $autosugg_dir/.git ]"; then
                 print_success "zsh-autosuggestions installed"
                 INSTALLED_ITEMS+=("plugin:zsh-autosuggestions")
                 ((plugins_installed++))
@@ -749,7 +749,7 @@ install_zsh_plugins() {
         rm -rf "$syntax_dir" 2>/dev/null
 
         if git_clone_with_retry "https://github.com/zsh-users/zsh-syntax-highlighting.git" "$syntax_dir" 1; then
-            if validate_installation "zsh-syntax-highlighting" "[ -d '$syntax_dir/.git' ]"; then
+            if validate_installation "zsh-syntax-highlighting" "[ -d $syntax_dir/.git ]"; then
                 print_success "zsh-syntax-highlighting installed"
                 INSTALLED_ITEMS+=("plugin:zsh-syntax-highlighting")
                 ((plugins_installed++))
